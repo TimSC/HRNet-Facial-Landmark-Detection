@@ -75,10 +75,17 @@ def main():
         pin_memory=config.PIN_MEMORY
     )
 
+    #for test in test_loader:
+        #a, b, c = test
+        #print (c['index'])
+        #print (c.keys()) ['index', 'center', 'scale', 'pts', 'tpts']
+
     nme, predictions = function.inference(config, test_loader, model)
 
     torch.save(predictions, os.path.join(final_output_dir, 'predictions.pth'))
 
+    print (predictions.shape)
+    print (len(test_loader))
 
 if __name__ == '__main__':
     main()

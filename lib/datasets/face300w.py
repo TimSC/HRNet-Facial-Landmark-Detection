@@ -53,7 +53,7 @@ class Face300W(data.Dataset):
 
         center_w = self.landmarks_frame.iloc[idx, 2]
         center_h = self.landmarks_frame.iloc[idx, 3]
-        center = torch.Tensor([center_w, center_h])
+        center = np.array([center_w, center_h], dtype=np.float32)
 
         pts = self.landmarks_frame.iloc[idx, 4:].values
         pts = pts.astype('float').reshape(-1, 2)
@@ -87,12 +87,12 @@ class Face300W(data.Dataset):
         img = img.astype(np.float32)
         img = (img/255.0 - self.mean) / self.std
         img = img.transpose([2, 0, 1])
-        target = torch.Tensor(target)
-        tpts = torch.Tensor(tpts)
-        center = torch.Tensor(center)
+        target = np.array(target, dtype=np.float32)
+        tpts = np.array(tpts, dtype=np.float32)
+        center = np.array(center, dtype=np.float32)
 
         meta = {'index': idx, 'center': center, 'scale': scale,
-                'pts': torch.Tensor(pts), 'tpts': tpts}
+                'pts': tpts, 'tpts': tpts}
 
         return img, target, meta
 

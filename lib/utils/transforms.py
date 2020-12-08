@@ -7,7 +7,7 @@
 import cv2
 import torch
 import scipy
-import skimage
+import skimage.transform
 import numpy as np
 from PIL import Image
 
@@ -161,7 +161,7 @@ def transform_preds(coords, center, scale, output_size):
 
 
 def crop(img, center, scale, output_size, rot=0):
-    center_new = center.clone()
+    center_new = center.copy()
 
     # Preprocessing for efficient cropping
     ht, wd = img.shape[0], img.shape[1]
